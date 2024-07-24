@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import { Color } from "three";
 import { Overlay } from "../Overlay"
+import { Board } from "../Board";
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
                 sectionColor={colorRef.current} 
                 fadeDistance={30} 
             />
+            <Board />
         </Canvas>
         <Overlay />
     </>

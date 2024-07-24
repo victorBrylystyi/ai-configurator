@@ -13,11 +13,14 @@ await hf.textToImage({
     negative_prompt: 'blurry',
   }
 }, {
-  wait_for_model:true
+  wait_for_model: true
 })
+.catch(rej => console.error(rej))
 .then(res => {console.log(res)})
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <App />
