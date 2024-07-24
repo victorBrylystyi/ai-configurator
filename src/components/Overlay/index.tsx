@@ -45,7 +45,7 @@ export const Overlay = () => {
                             onClick={() => {
                                 createNewMsg({
                                     id: MathUtils.generateUUID(),
-                                    message: msg,
+                                    message: msg 
                                 });
                                 setMsg('');
                             }}
