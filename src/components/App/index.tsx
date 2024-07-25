@@ -1,6 +1,6 @@
 import { Environment, Grid, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Color } from "three";
 import { Overlay } from "../Overlay"
 import { Board } from "../Board";
@@ -27,7 +27,9 @@ const App = () => {
                 sectionColor={colorRef.current} 
                 fadeDistance={30} 
             />
-            <Board />
+            <Suspense fallback={null}>
+                <Board />
+            </Suspense>
         </Canvas>
         <Overlay />
     </>
