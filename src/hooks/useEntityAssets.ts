@@ -5,7 +5,8 @@ import { suspend } from "suspend-react";
 const loadingFn = () => 
     (id:string) => {
         const {message, } = state.msgs[id];
-        return new Promise<HTMLImageElement>((res, reject) => {
+        console.log('loadingFn', id)
+        return new Promise<string>((res, reject) => {
             hf.textToImage({
                 inputs: message,
                 model: 'stabilityai/stable-diffusion-2',
@@ -13,16 +14,16 @@ const loadingFn = () =>
                     negative_prompt: 'blurry',
                 }
                 }, {
-                    wait_for_model: true,
+                    // wait_for_model: true,
                 }
             )
             .catch(msg => reject(msg))
             .then(blob => {
                 const url = URL.createObjectURL(blob as Blob); 
-    
-                const image = new Image();
-                image.src = url;
-                image.onload = (e) => res(e.target as HTMLImageElement);
+                res(url);
+                // const image = new Image();
+                // image.src = url;
+                // image.onload = (e) => res(e.target as HTMLImageElement);
             }); 
         });
     }

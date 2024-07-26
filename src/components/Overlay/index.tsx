@@ -4,7 +4,7 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 import { useEffect, useState } from "react";
 import { MathUtils } from "three";
 import { useSnapshot } from "valtio";
-import {createNewMsg, state} from '../../store'
+import {createEntity, createNewMsg, state} from '../../store'
 
 export const Overlay = () => {
 
@@ -43,10 +43,12 @@ export const Overlay = () => {
                             sx={{ p: '10px' }} 
                             aria-label="directions"
                             onClick={() => {
+                                const messageId = MathUtils.generateUUID()
                                 createNewMsg({
-                                    id: MathUtils.generateUUID(),
+                                    id: messageId,
                                     message: msg 
                                 });
+                                createEntity(messageId);
                                 setMsg('');
                             }}
                         >

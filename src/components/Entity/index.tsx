@@ -1,28 +1,52 @@
-import { useEffect, useState } from "react";
-import { state } from "../../store";
-import { useSnapshot } from "valtio";
-import { DoubleSide, Texture } from "three";
-import { hf } from "../../index";
 import { TransformControls, useTexture } from "@react-three/drei";
 import { useEntityAssets } from "../../hooks/useEntityAssets";
 
 export const Entity = (props: {id: string}) => {
 
-    const {message} = useSnapshot(state).msgs[props.id];
+    const url = useEntityAssets(props.id);
+    const texture = useTexture(url);
 
-    const [texture, setTexture] = useState<Texture | null>(null);
+    return <>
+        <TransformControls mode='translate'> 
+            <mesh>
+                <planeGeometry args={[10, 10]} />
+                <meshBasicMaterial map={texture} />
+            </mesh>
+        </TransformControls>
+    </>;
+};
 
+    // const url = suspend(async () => {
+    //     // const res = await fetch(`https://hacker-news.firebaseio.com/${version}/item/${id}.json`)
+    //     // return res.json()   
+        
+    //         const res = await hf.textToImage({
+    //             inputs: message,
+    //             model: 'stabilityai/stable-diffusion-2',
+    //             parameters: {
+    //                 negative_prompt: 'blurry',
+    //             }
+    //             }, {
+    //                 wait_for_model: true
+    //             })
+    //             .catch(rej => console.error(rej))
+    //             .then(res => {
+    //             const url = URL.createObjectURL(res as Blob); 
 
-    const img = useEntityAssets(props.id);
+    //             return url;
 
-    useEffect(() => {
-        if (img) {
-            console.log(img);
-            const text = new Texture(img);
-            text.needsUpdate = true;
-            setTexture(text)
-        }
-    }, [img])
+    //             // const image = new Image();
+    //             // image.src = url;
+    //             // image.onload = function() { 
+
+    //             //     const text = new Texture(image);
+    //             //     text.needsUpdate = true;
+    //             //     setTexture(text)
+    //             // };
+    //         });
+
+    //         return res;
+    //   }, [message])
 
 
 
@@ -57,14 +81,3 @@ export const Entity = (props: {id: string}) => {
     //     fetchData();
 
     // }, [image, message])
-
-    return (<>
-                <TransformControls mode='translate'> 
-                <mesh
-                >
-                    <planeGeometry args={[10, 10]} />
-                    {(texture ? <meshBasicMaterial needsUpdate map={texture} /> : <meshBasicMaterial color={'red'} map={null} />)}
-                </mesh>
-                </TransformControls>
-    </>);
-};

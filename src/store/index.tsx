@@ -20,7 +20,6 @@ export const createNewMsg = (newMsg:Partial<PromptType>) => {
         name: `pic ${a}`,
         image: null
     };
-    createEntity(newMsg.id);
     a++;
 };
 
