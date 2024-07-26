@@ -1,19 +1,23 @@
-import { TransformControls, useTexture } from "@react-three/drei";
+import { useTexture } from "@react-three/drei";
 import { useEntityAssets } from "../../hooks/useEntityAssets";
+import { setSelectedObject } from "../../store";
 
 export const Entity = (props: {id: string}) => {
 
     const url = useEntityAssets(props.id);
     const texture = useTexture(url);
 
-    return <>
-        <TransformControls mode='translate'> 
-            <mesh>
-                <planeGeometry args={[10, 10]} />
-                <meshBasicMaterial map={texture} />
-            </mesh>
-        </TransformControls>
-    </>;
+    return <mesh
+        name={props.id}
+        onClick={(e) => {
+            e.stopPropagation();
+            setSelectedObject(props.id)
+        }}
+        onPointerMissed={(e) => e.type === 'click' && setSelectedObject(null)}
+    >
+        <planeGeometry args={[10, 10]} />
+        <meshBasicMaterial map={texture} />
+    </mesh>;
 };
 
     // const url = suspend(async () => {

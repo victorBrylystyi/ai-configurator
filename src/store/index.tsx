@@ -3,6 +3,7 @@ import { proxy } from "valtio";
 
 export const state = proxy<StoreType>({
     // currentMsg: '',
+    selected: null,
     msgs: {},
     entities: []
 });
@@ -21,6 +22,10 @@ export const createNewMsg = (newMsg:Partial<PromptType>) => {
         image: null
     };
     a++;
+};
+
+export const setSelectedObject = (objectId: string | null) => {
+    state.selected = objectId;
 };
 
 

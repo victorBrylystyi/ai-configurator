@@ -17,6 +17,7 @@ export type MsgsCacheType = {
 
 export type StoreType = {
     // currentMsg: string
+    selected: string | null
     msgs: MsgsCacheType
     entities: string[]
 }

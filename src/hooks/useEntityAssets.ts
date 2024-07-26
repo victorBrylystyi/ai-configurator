@@ -1,6 +1,8 @@
-import { hf } from "..";
+import { HfInference } from "@huggingface/inference";
 import { state } from "../store";
 import { suspend } from "suspend-react";
+
+const hf = new HfInference(process.env.REACT_APP_MY_TOKEN);
 
 const loadingFn = () => 
     (id:string) => {
